@@ -1,10 +1,7 @@
 package nz.ac.auckland.softeng754_assignment4.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.egit.github.core.User;
@@ -21,7 +18,7 @@ public class GithubServiceTest {
 	
 	String username;
 	String password;
-	GitHubService github;
+	IGitHubService github;
 	PullRequest pullRequest;
 	
 	@Before
@@ -29,7 +26,7 @@ public class GithubServiceTest {
 		//Given
 		username = "Saltedfish754@gmail.com";
 		password = "S@lted_754";
-		github = Mockito.mock(GitHubService.class);
+		github = Mockito.mock(IGitHubService.class);
 		pullRequest = Mockito.mock(PullRequest.class);
 	}
 
