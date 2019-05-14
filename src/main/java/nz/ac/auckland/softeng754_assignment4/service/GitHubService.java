@@ -3,13 +3,17 @@ package nz.ac.auckland.softeng754_assignment4.service;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.PullRequest;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.RepositoryContents;
+import org.eclipse.egit.github.core.RepositoryId;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.PullRequestService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.UserService;
+
+import javax.ws.rs.NotAuthorizedException;
 
 public class GitHubService implements IGitHubService {
 
@@ -29,15 +33,14 @@ public class GitHubService implements IGitHubService {
 	}
 
 	@Override
-	public boolean signIn(String username, String password) {
+	public User signIn(String username, String password) throws NotAuthorizedException {
 		_client.setCredentials(username, password);
 		try {
-			_userService.getUser();
+			return _userService.getUser();
 		} catch (IOException e) {
 			_client.setCredentials(null, null);
-			return false;
+			throw new NotAuthorizedException(e);
 		}
-		return true;
 	}
 
 	@Override
@@ -51,16 +54,8 @@ public class GitHubService implements IGitHubService {
 	}
 
 	@Override
-	public PullRequest createPullRequest(String repository, PullRequest request) throws IOException {
-		Repository repo = new Repository();
-		for(Repository tempRepo : _repositoryService.getRepositories()) {
-			if (tempRepo.getName().equals(repository)){
-				repo = tempRepo;
-				break;
-			}
-		}
-		_pullRequestService.createPullRequest(repo, request);
-		return null;
+	public PullRequest createPullRequest(RepositoryId repository, PullRequest request) throws IOException {
+		return _pullRequestService.createPullRequest(repository, request);
 	}
 	
 	@Override
