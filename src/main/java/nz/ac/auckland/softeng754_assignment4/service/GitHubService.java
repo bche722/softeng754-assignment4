@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.MergeStatus;
 import org.eclipse.egit.github.core.PullRequest;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.RepositoryContents;
@@ -60,6 +61,12 @@ public class GitHubService implements IGitHubService {
 	
 	@Override
 	public List<RepositoryContents> getContents(PullRequest pullRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MergeStatus merge(RepositoryId repository, PullRequest request, String commitMessage) throws IOException {
 		// TODO Auto-generated method stub
 		return null;
 	}

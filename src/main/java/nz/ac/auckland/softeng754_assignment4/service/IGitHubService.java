@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.MergeStatus;
 import org.eclipse.egit.github.core.PullRequest;
 import org.eclipse.egit.github.core.RepositoryContents;
 import org.eclipse.egit.github.core.RepositoryId;
@@ -21,4 +22,6 @@ public interface IGitHubService {
 	public PullRequest createPullRequest(RepositoryId repository, PullRequest request) throws IOException;
 
 	public List<RepositoryContents> getContents(PullRequest pullRequest);
+
+	public MergeStatus merge(RepositoryId repository, PullRequest request, String commitMessage) throws IOException;
 }
