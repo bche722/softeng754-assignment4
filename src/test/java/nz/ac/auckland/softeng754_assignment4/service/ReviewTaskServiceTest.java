@@ -46,6 +46,7 @@ public class ReviewTaskServiceTest {
     reviewer = reviewerService.addReviewer(username);
 
     // get developer
+    githubService = new GitHubService();
     user = githubService.signIn("Saltedfish754", "cafnyP-rathaz-7razho");
   }
 
