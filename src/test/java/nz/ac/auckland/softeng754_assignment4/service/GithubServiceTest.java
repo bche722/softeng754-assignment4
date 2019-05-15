@@ -97,4 +97,19 @@ public class GithubServiceTest {
 		// Then
 		// assertEquals(result, source);
 	}
+
+	@Test
+	public void shouldMergePullRequestSuccessful() throws IOException {
+		// Given
+		MergeStatus status = Mockito.mock(MergeStatus.class);
+		RepositoryId repositoryId = new RepositoryId(repoOwner, repoName);
+		String commitMessage = "pull request commit message here";
+		Mockito.doReturn(status).when(github).merge(repositoryId, pullRequest, commitMessage);
+
+		// When
+		MergeStatus result = github.merge(repositoryId, pullRequest, commitMessage);
+
+		// Then
+		assertTrue(result.isMerged());
+	}
 }
