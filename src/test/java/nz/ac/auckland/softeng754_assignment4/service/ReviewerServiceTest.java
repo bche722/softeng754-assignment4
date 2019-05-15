@@ -30,7 +30,7 @@ public class ReviewerServiceTest {
   @Test
 	public void shouldAddReviewerSuccessfulWithUniqueUsername() throws IOException {
     // Given
-    Mockito.doReturn(Reviewer.class).when(reviewerService).addReviewer(username);
+    Mockito.doReturn(Mockito.mock(Reviewer.class)).when(reviewerService).addReviewer(username);
 
     // When
     reviewer = reviewerService.addReviewer(username);
@@ -42,12 +42,13 @@ public class ReviewerServiceTest {
   @Test(expected = IOException.class)
   public void shouldAddReviewerFailureWithSameUsername() throws IOException {
     // Given
-    Mockito.doReturn(Reviewer.class).when(reviewerService).addReviewer(username);
+    Mockito.doThrow(IOException.class).when(reviewerService).addReviewer(username);
 
     // When
     reviewer = reviewerService.addReviewer(username);
   }
 
+  @Test
   public void shouldReturnReviewerSuccessful() throws IOException {
     int id = reviewer.getId();
   
@@ -62,6 +63,7 @@ public class ReviewerServiceTest {
     assertEquals(result.getUsername(), username);
   }
   
+  @Test
   public void shouldDeleteReviewerSuccessful() throws IOException {
     int id = reviewer.getId();
 
