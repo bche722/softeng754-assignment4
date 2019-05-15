@@ -1,12 +1,14 @@
 package nz.ac.auckland.softeng754_assignment4.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.MergeStatus;
 import org.eclipse.egit.github.core.PullRequest;
 import org.eclipse.egit.github.core.PullRequestMarker;
 import org.eclipse.egit.github.core.RepositoryContents;
@@ -23,33 +25,30 @@ public class GithubServiceTest {
 
 	String username;
 	String password;
+	String repoOwner;
+	String repoName;
+
 	IGitHubService github;
 	PullRequest pullRequest;
 
 	@Before
 	public void SetUp() {
 		// Given
-		username = "Saltedfish754@gmail.com";
-		password = "S@lted_754";
-		github = Mockito.mock(IGitHubService.class);
+		username = "Saltedfish754";
+		password = "cafnyP-rathaz-7razho";
+		repoOwner = "bche722";
+		repoName = "softeng754-assignment4";
+		github = new GitHubService();
 		pullRequest = Mockito.mock(PullRequest.class);
 	}
 
 	@Test
 	public void shouldReturnAuthWithCorrectUsernameAndPassword() {
-
-		// Given
-		User user = new User();
-		user.setLogin(username);
-		Mockito.doReturn(user).when(github).signIn(username, password);
-
 		// When
-		github.signIn(username, password);
-
-		String login = user.getLogin();
+		User user = github.signIn(username, password);
 
 		// Then
-		assertEquals(login, username);
+		assertEquals(user.getLogin(), username);
 	}
 
 	@Test(expected = NotAuthorizedException.class)
@@ -57,7 +56,6 @@ public class GithubServiceTest {
 
 		// Given
 		String wrong_password = "Wrong Password";
-		Mockito.doThrow(NotAuthorizedException.class).when(github).signIn(username, wrong_password);
 
 		// When
 		github.signIn(username, wrong_password);
@@ -77,10 +75,7 @@ public class GithubServiceTest {
 		request.setBody(body);
 		request.setHead(new PullRequestMarker().setRef(head));
 		request.setBase(new PullRequestMarker().setRef(base));
-		String repoOwner = "bche722";
-		String repoName = "softeng754-assignment4";
 		RepositoryId repositoryId = new RepositoryId(repoOwner, repoName);
-		Mockito.doReturn(pullRequest).when(github).createPullRequest(repositoryId, request);
 		
 		// When
 		PullRequest result = github.createPullRequest(repositoryId, request);
@@ -94,7 +89,7 @@ public class GithubServiceTest {
 		// Given
 		List<RepositoryContents> contents = new ArrayList<RepositoryContents>();
 		
-	    Mockito.doReturn(contents).when(github).getContents(pullRequest);
+	  Mockito.doReturn(contents).when(github).getContents(pullRequest);
 		
 		// When
 		List<RepositoryContents> result = github.getContents(pullRequest);
