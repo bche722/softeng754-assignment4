@@ -1,4 +1,4 @@
-package nz.ac.auckland.softeng754_assignment4.service;
+package nz.ac.auckland.softeng754_assignment4.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,12 +6,12 @@ import java.util.Random;
 
 public class Reviewer {
 
-    private String username;
     private int id;
+    private String username;
     private int count;
 
-    public void increment(){
-        this.count = this.count + 1;
+    public Reviewer(String username) {
+        this.username = username;
     }
 
     public String getUsername() {
@@ -25,7 +25,6 @@ public class Reviewer {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }

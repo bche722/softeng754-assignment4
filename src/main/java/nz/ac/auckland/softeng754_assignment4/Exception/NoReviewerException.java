@@ -1,4 +1,4 @@
-package nz.ac.auckland.softeng754_assignment4.service;
+package nz.ac.auckland.softeng754_assignment4.Exception;
 
 public class NoReviewerException extends NullPointerException {
 }
