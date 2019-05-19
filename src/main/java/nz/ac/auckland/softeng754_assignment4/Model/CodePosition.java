@@ -7,4 +7,20 @@ public class CodePosition
 
     // the column in line of code
     int column;
+
+    public CodePosition(int line, int column)
+    {
+        this.line = line;
+        this.column = column;
+    }
+
+    public int getLine()
+    {
+        return line;
+    }
+
+    public int getColumn()
+    {
+        return column;
+    }
 }
