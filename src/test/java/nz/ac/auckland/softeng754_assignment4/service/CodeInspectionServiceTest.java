@@ -24,7 +24,6 @@ public class CodeInspectionServiceTest {
     @Mock
     IGitHubService githubService;
 
-    @Mock
     ICodeInspectionService codeInspectionService;
 
     @Mock
@@ -38,6 +37,7 @@ public class CodeInspectionServiceTest {
     {
         // mockup
         when(githubService.getContents(pullRequest)).thenReturn(Arrays.asList(contents));
+        codeInspectionService = new CodeInspectionService();
     }
 
     @Test
