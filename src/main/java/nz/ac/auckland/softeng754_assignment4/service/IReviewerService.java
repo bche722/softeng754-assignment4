@@ -1,7 +1,7 @@
 package nz.ac.auckland.softeng754_assignment4.service;
 
-import nz.ac.auckland.softeng754_assignment4.Model.Reviewer;
-import nz.ac.auckland.softeng754_assignment4.Model.Task;
+import nz.ac.auckland.softeng754_assignment4.model.Reviewer;
+import nz.ac.auckland.softeng754_assignment4.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;

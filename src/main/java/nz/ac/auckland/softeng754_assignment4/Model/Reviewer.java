@@ -1,8 +1,4 @@
-package nz.ac.auckland.softeng754_assignment4.Model;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+package nz.ac.auckland.softeng754_assignment4.model;
 
 public class Reviewer {
 

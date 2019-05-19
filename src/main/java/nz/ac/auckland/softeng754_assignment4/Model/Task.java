@@ -1,6 +1,4 @@
-package nz.ac.auckland.softeng754_assignment4.Model;
-
-import nz.ac.auckland.softeng754_assignment4.Model.Reviewer;
+package nz.ac.auckland.softeng754_assignment4.model;
 
 public class Task {
     private int id;
