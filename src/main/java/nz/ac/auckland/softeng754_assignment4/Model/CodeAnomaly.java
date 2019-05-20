@@ -1,4 +1,4 @@
-package nz.ac.auckland.softeng754_assignment4.Model;
+package nz.ac.auckland.softeng754_assignment4.model;
 
 public class CodeAnomaly
 {

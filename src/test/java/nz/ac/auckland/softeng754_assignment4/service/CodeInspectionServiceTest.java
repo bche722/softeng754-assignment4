@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import nz.ac.auckland.softeng754_assignment4.Model.CodeAnomaly;
+import nz.ac.auckland.softeng754_assignment4.model.CodeAnomaly;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CodeInspectionServiceTest {

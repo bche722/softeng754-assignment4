@@ -3,8 +3,8 @@ package nz.ac.auckland.softeng754_assignment4.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import nz.ac.auckland.softeng754_assignment4.Model.CodeAnomaly;
-import nz.ac.auckland.softeng754_assignment4.Model.CodePosition;
+import nz.ac.auckland.softeng754_assignment4.model.CodeAnomaly;
+import nz.ac.auckland.softeng754_assignment4.model.CodePosition;
 
 import org.eclipse.egit.github.core.RepositoryContents;
 

@@ -2,7 +2,7 @@ package nz.ac.auckland.softeng754_assignment4.service;
 
 import java.util.List;
 
-import nz.ac.auckland.softeng754_assignment4.Model.CodeAnomaly;
+import nz.ac.auckland.softeng754_assignment4.model.CodeAnomaly;
 import org.eclipse.egit.github.core.RepositoryContents;
 
 public interface ICodeInspectionService
