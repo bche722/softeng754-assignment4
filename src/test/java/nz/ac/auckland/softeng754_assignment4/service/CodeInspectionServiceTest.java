@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +34,7 @@ public class CodeInspectionServiceTest {
     RepositoryContents contents;
 
     @Before
-    public void SetUp()
+    public void SetUp() throws IOException
     {
         // mockup
         when(githubService.getContents(pullRequest)).thenReturn(Arrays.asList(contents));
@@ -41,7 +42,7 @@ public class CodeInspectionServiceTest {
     }
 
     @Test
-    public void shouldClassifiedDefectTypeAnomaly()
+    public void shouldClassifiedDefectTypeAnomaly() throws IOException
     {
         // Given
         when(contents.getContent()).thenReturn("mockup defect code here");
@@ -58,7 +59,7 @@ public class CodeInspectionServiceTest {
     }
 
     @Test
-    public void shouldClassifiedSmellTypeAnomaly()
+    public void shouldClassifiedSmellTypeAnomaly() throws IOException
     {
         // Given
         when(contents.getContent()).thenReturn("mockup smell code here");
@@ -75,7 +76,7 @@ public class CodeInspectionServiceTest {
     }
 
     @Test
-    public void shouldClassifiedMaliciousTypeAnomaly()
+    public void shouldClassifiedMaliciousTypeAnomaly() throws IOException
     {
         // Given
         when(contents.getContent()).thenReturn("mockup malicious code here");
