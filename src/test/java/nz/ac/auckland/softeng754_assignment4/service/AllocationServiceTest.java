@@ -85,7 +85,7 @@ public class AllocationServiceTest {
         //When
         allocationService.allocateTask(task, reviewer);
         //Then
-        assertFalse(task.getReviewer() == null);
+        assertEquals(reviewer.getUsername(), task.getReviewer());
     }
 
     @Test
