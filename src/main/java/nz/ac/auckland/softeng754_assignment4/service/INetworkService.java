@@ -11,5 +11,5 @@ public interface INetworkService {
 
 	public List<CodeAnomaly> receiveReviewResult(Reviewer reviewer);
 
-	public void sendFeedback();
+	public void sendFeedback(CodeAnomaly codeAnomaly, String comments);
 }
