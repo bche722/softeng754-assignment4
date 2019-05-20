@@ -18,7 +18,7 @@ public class CodeInspectionService implements ICodeInspectionService
 
     @Override
     public List<CodeAnomaly> inspector(String content) {
-        List<CodeAnomaly> anomalies = new ArrayList<>();
+        List<CodeAnomaly> anomalies = new ArrayList<CodeAnomaly>();
         if (content.indexOf("defect") != -1) {
             int column = content.indexOf("defect");
             CodePosition start = new CodePosition(0, column);
