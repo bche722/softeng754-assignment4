@@ -1,10 +1,11 @@
 package nz.ac.auckland.softeng754_assignment4.service;
 
-import nz.ac.auckland.softeng754_assignment4.Model.Reviewer;
-import nz.ac.auckland.softeng754_assignment4.Model.Task;
 
 import java.util.List;
 import java.util.Random;
+
+import nz.ac.auckland.softeng754_assignment4.model.Reviewer;
+import nz.ac.auckland.softeng754_assignment4.model.Task;
 
 public class AllocationService {
     private IDatabase iDatabase;

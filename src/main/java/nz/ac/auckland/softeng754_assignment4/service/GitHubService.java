@@ -3,44 +3,55 @@ package nz.ac.auckland.softeng754_assignment4.service;
 import java.io.IOException;
 import java.util.List;
 
-import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.MergeStatus;
 import org.eclipse.egit.github.core.PullRequest;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.RepositoryContents;
-import org.eclipse.egit.github.core.RepositoryId;
 import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.service.ContentsService;
 import org.eclipse.egit.github.core.service.PullRequestService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.UserService;
 
-import javax.ws.rs.NotAuthorizedException;
+import nz.ac.auckland.softeng754_assignment4.exception.NotAuthorizedException;
 
 public class GitHubService implements IGitHubService {
 
 	private GitHubClient _client;
-	
+
 	private UserService _userService;
-	
+
 	private RepositoryService _repositoryService;
-	
+
 	private PullRequestService _pullRequestService;
+
+	private ContentsService _contentsService;
 
 	public GitHubService() {
 		_client = new GitHubClient();
 		_userService = new UserService(_client);
 		_repositoryService = new RepositoryService(_client);
 		_pullRequestService = new PullRequestService(_client);
+		_contentsService = new ContentsService(_client);
+	}
+
+	public GitHubService(GitHubClient client, UserService userService, RepositoryService repositoryService,
+			PullRequestService pullRequestService, ContentsService contentsService) {
+		this._client = client;
+		this._userService = userService;
+		this._repositoryService = repositoryService;
+		this._pullRequestService = pullRequestService;
+		this._contentsService = contentsService;
 	}
 
 	@Override
-	public User signIn(String username, String password) throws NotAuthorizedException {
+	public void signIn(String username, String password) throws NotAuthorizedException {
 		_client.setCredentials(username, password);
 		try {
-			return _userService.getUser();
+			_userService.getUser();
 		} catch (IOException e) {
 			_client.setCredentials(null, null);
-			throw new NotAuthorizedException(e);
+			throw new NotAuthorizedException(e.getMessage());
 		}
 	}
 
@@ -55,20 +66,26 @@ public class GitHubService implements IGitHubService {
 	}
 
 	@Override
-	public PullRequest createPullRequest(RepositoryId repository, PullRequest request) throws IOException {
-		return _pullRequestService.createPullRequest(repository, request);
-	}
-	
-	@Override
-	public List<RepositoryContents> getContents(PullRequest pullRequest) {
-		// TODO Auto-generated method stub
-		return null;
+	public PullRequest createPullRequest(String repository, String owner, PullRequest request) throws IOException {
+		Repository repo = new Repository();
+		for (Repository tempRepo : _repositoryService.getRepositories()) {
+			if (owner.equals(tempRepo.getOwner().getLogin()) && repository.equals(tempRepo.getName())) {
+				repo = tempRepo;
+				break;
+			}
+		}
+		return _pullRequestService.createPullRequest(repo, request);
 	}
 
 	@Override
-	public MergeStatus merge(RepositoryId repository, PullRequest request, String commitMessage) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RepositoryContents> getContents(PullRequest pullRequest) throws IOException {
+		return _contentsService.getContents(pullRequest.getBase().getRepo());
+	}
+
+	@Override
+	public MergeStatus merge(Repository repository, PullRequest request, String commitMessage)
+			throws IOException {
+		return _pullRequestService.merge(repository, (int) request.getId(), commitMessage);
 	}
 
 }

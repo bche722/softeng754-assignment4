@@ -7,8 +7,8 @@ import static org.junit.Assert.assertFalse;
 import java.util.ArrayList;
 import java.util.List;
 
-import nz.ac.auckland.softeng754_assignment4.Model.Reviewer;
-import nz.ac.auckland.softeng754_assignment4.Model.Task;
+import nz.ac.auckland.softeng754_assignment4.model.Reviewer;
+import nz.ac.auckland.softeng754_assignment4.model.Task;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
