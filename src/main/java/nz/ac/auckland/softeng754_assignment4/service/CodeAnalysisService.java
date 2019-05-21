@@ -17,12 +17,12 @@ public class CodeAnalysisService implements ICodeAnalysisService
     public CodeAnalysisReport analysis(List<RepositoryContents> contents) {
         List<CodeAnomaly> anomalies = new ArrayList<CodeAnomaly>();
         List<String> fileContents = new ArrayList<String>();
-        contents.forEach(content -> {
+        for(RepositoryContents content: contents) {
           String fileContent = content.getContent();
           fileContents.add(fileContent);
           List<CodeAnomaly> result = inspectionService.inspector(content);
           anomalies.addAll(result);
-        });
+        };
         CodeAbstraction abstraction = new CodeAbstraction(fileContents);
         CodeAnalysisReport report = new CodeAnalysisReport(abstraction, anomalies);
         return report;
