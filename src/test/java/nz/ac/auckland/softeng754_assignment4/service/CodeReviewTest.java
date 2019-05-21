@@ -46,10 +46,10 @@ public class CodeReviewTest {
 	}
 
 	@Test(expected = NoReviewerException.class)
-	public void shouldSendReviewSuccessfullyWithNoReviewer() throws NoReviewerException {
+	public void shouldNotSendReviewWithNoReviewer() throws NoReviewerException {
 		CodeAnomaly codeAnomaly = _codeInspectionService.inspector("defect").get(0);
 		Mockito.doNothing().when(_networkService).sendReviewResult(null, codeAnomaly);
-		_codeReviewService.sendReviewResult(_reviewer, codeAnomaly);
+		_codeReviewService.sendReviewResult(null, codeAnomaly);
 	}
 
 	@Test

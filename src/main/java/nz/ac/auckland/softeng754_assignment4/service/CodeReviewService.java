@@ -15,15 +15,23 @@ public class CodeReviewService {
 	}
 
 	public void sendReviewResult(Reviewer reviewer, CodeAnomaly codeAnomaly) throws NoReviewerException {
-		
+		if(reviewer == null) {
+			throw new NoReviewerException();
+		}else {
+			_networkService.sendReviewResult(reviewer, codeAnomaly);
+		}
 	}
 
 	public List<CodeAnomaly> receiveReviewResult(Reviewer reviewer) throws NoReviewException{
-		
-		return null;
+		List<CodeAnomaly> result = _networkService.receiveReviewResult(reviewer);
+		if(result == null) {
+			throw new NoReviewException();
+		}else {
+			return result;
+		}
 	}
 
 	public void sendFeedback(CodeAnomaly codeAnomaly, String comments) {
-
+		_networkService.sendFeedback(codeAnomaly, comments);
 	}
 }
