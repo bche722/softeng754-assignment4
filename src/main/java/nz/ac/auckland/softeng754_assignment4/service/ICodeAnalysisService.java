@@ -9,4 +9,6 @@ public interface ICodeAnalysisService
 {
     // analysis code and get report
     CodeAnalysisReport analysis(List<RepositoryContents> contents);
+
+    void setInspectionService(ICodeInspectionService service);
 }

@@ -11,4 +11,9 @@ public class CodeAnalysisService implements ICodeAnalysisService
     public CodeAnalysisReport analysis(List<RepositoryContents> contents) {
       return null;
     }
+
+    @Override
+    public void setInspectionService(ICodeInspectionService service) {
+
+    }
 }
