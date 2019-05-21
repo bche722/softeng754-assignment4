@@ -40,15 +40,16 @@ public class CodeAnalysisServiceTest {
     RepositoryContents content;
 
     @Mock
-    ArrayList<CodeAnomaly> codeAnomaly;
+    CodeAnomaly codeAnomaly;
 
     @Before
     public void SetUp() throws IOException
     {
         // mockup
         when(githubService.getContents(pullRequest)).thenReturn(Arrays.asList(content));
-        when(inspectionService.inspector(content)).thenReturn(codeAnomaly);
+        when(inspectionService.inspector(content)).thenReturn(Arrays.asList(codeAnomaly));
         codeAnalysisService = new CodeAnalysisService();
+        codeAnalysisService.setInspectionService(inspectionService);
     }
 
     @Test
@@ -62,7 +63,7 @@ public class CodeAnalysisServiceTest {
 
         // Then
         assertNotNull(report);
-        assertEquals(report.getCodeAnomalies(), codeAnomaly);
+        assertTrue(report.getCodeAnomalies().contains(codeAnomaly));
         assertNotNull(report.getAbstraction());
     }
 }
