@@ -15,8 +15,6 @@ public interface IDatabase {
 
     void updateReviewer(Reviewer chosenReviewer);
 
-//    Reviewer getReviewerByUsername(String username);
-
-//    List<Reviewer> getAllReviewers();
+    Reviewer getReviewerByUsername(String username);
 
 }

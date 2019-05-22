@@ -1,12 +1,11 @@
 package nz.ac.auckland.softeng754_assignment4.service;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import nz.ac.auckland.softeng754_assignment4.exception.UsernameExistsException;
 import nz.ac.auckland.softeng754_assignment4.model.Reviewer;
 import nz.ac.auckland.softeng754_assignment4.model.Task;
 import org.junit.Before;
@@ -74,7 +73,7 @@ public class AllocationServiceTest {
         Reviewer chosenReviewer = allocationService.chooseReviewer();
 
         //Then
-        assertTrue(reviewersWithHighestCount.contains(chosenReviewer));
+        assertEquals(true, reviewersWithHighestCount.contains(chosenReviewer));
     }
 
     @Test
@@ -120,19 +119,24 @@ public class AllocationServiceTest {
         Mockito.verify(iDatabase, Mockito.times(1)).updateReviewer(chosenReviewer);
     }
 
-//    @Test
-//    public void shouldFailWhenAddingReviewersWithExistingName(){
-//        //Given
-//        Reviewer reviewer = Mockito.mock(Reviewer.class);
-//        Mockito.doReturn(reviewer).when(iDatabase).getReviewerByUsername(reviewer.getUsername());
-//        //When
-//        boolean result = allocationService.isReviewerExist(reviewer);
-//        //then
-//        assertTrue(result);
-//    }
+    @Test(expected = UsernameExistsException.class)
+    public void shouldFailWhenUsernameExists() throws UsernameExistsException{
+        //Given
+        Reviewer reviewer = new Reviewer("reviewer");
+        Mockito.doReturn(reviewer).when(iDatabase).getReviewerByUsername(reviewer.getUsername());
+        reviewers.add(reviewer);
+        //When
+        allocationService.checkUsernames(reviewers);
+    }
 
-
-
-
+    @Test
+    public void shouldSucceedWhenUsernameIsUnique() throws UsernameExistsException {
+        //Given
+        Reviewer reviewer = new Reviewer("reviewer");
+        Mockito.doReturn(null).when(iDatabase).getReviewerByUsername(reviewer.getUsername());
+        reviewers.add(reviewer);
+        //When
+        allocationService.checkUsernames(reviewers);
+    }
 
 }

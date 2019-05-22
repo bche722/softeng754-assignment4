@@ -1,9 +1,11 @@
 package nz.ac.auckland.softeng754_assignment4.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import nz.ac.auckland.softeng754_assignment4.exception.UsernameExistsException;
 import nz.ac.auckland.softeng754_assignment4.model.Reviewer;
 import nz.ac.auckland.softeng754_assignment4.model.Task;
 
@@ -22,11 +24,11 @@ public class AllocationService {
         iDatabase.deleteReviewers(reviewers);
     }
 
-    public Reviewer chooseReviewer(){
+    public Reviewer chooseReviewer() throws NullPointerException{
         int LowestCount = iDatabase.getLowestCount();
         List<Reviewer> reviewers = iDatabase.getReviewersByCount(LowestCount);
         Random rand = new Random();
-        return reviewers.get(rand.nextInt() % reviewers.size());
+        return reviewers.get(rand.nextInt(reviewers.size()));
     }
 
     public void allocateTask(Task task, Reviewer reviewer) {
@@ -46,28 +48,13 @@ public class AllocationService {
         iDatabase.updateReviewer(chosenReviewer);
     }
 
-//    public boolean isReviewerExist(Reviewer reviewer){
-//        String username = reviewer.getUsername();
-//        reviewer = iDatabase.getReviewerByUsername(username);
-//        if (reviewer == null){
-//            throw ReviewerExistsException();
-//        }
-//        return true;
-//    }
-//
-//    public Reviewer getReviewer() {
-//        return reviewer;
-//    }
-//
-//    public void setReviewer(Reviewer reviewer) {
-//        this.reviewer = reviewer;
-//    }
-//
-//    public List<Reviewer> getReviewers() {
-//        return reviewers;
-//    }
-//
-//    public void setReviewers(List<Reviewer> reviewers) {
-//        this.reviewers = reviewers;
-//    }
+    public void checkUsernames(List<Reviewer> reviewers) throws UsernameExistsException {
+        for (Reviewer reviewer: reviewers){
+            if (iDatabase.getReviewerByUsername(reviewer.getUsername()) != null){
+                System.out.println(reviewer.getUsername() + " exists");
+                throw new UsernameExistsException("user: " + reviewer.getUsername() + "exists");
+            }
+        }
+    }
+
 }
