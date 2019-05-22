@@ -5,6 +5,7 @@ import java.util.List;
 
 import nz.ac.auckland.softeng754_assignment4.exception.NotAuthorizedException;
 
+import org.eclipse.egit.github.core.CommitComment;
 import org.eclipse.egit.github.core.MergeStatus;
 import org.eclipse.egit.github.core.PullRequest;
 import org.eclipse.egit.github.core.Repository;
@@ -24,4 +25,6 @@ public interface IGitHubService {
 
 	public MergeStatus merge(Repository repository, PullRequest request, String commitMessage)
 			throws IOException;
+	
+	public CommitComment createComment(Repository repository,int id, CommitComment comment) throws IOException;
 }

@@ -13,6 +13,7 @@ import org.eclipse.egit.github.core.service.ContentsService;
 import org.eclipse.egit.github.core.service.PullRequestService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.UserService;
+import org.eclipse.egit.github.core.CommitComment;
 import org.eclipse.egit.github.core.MergeStatus;
 import org.eclipse.egit.github.core.PullRequest;
 import org.eclipse.egit.github.core.PullRequestMarker;
@@ -133,5 +134,19 @@ public class GithubServiceTest {
 
 		// Then
 		assertTrue(result.isMerged());
+	}
+	
+	@Test
+	public void shouldAddComments() throws IOException {
+		// Given
+		Repository repository = new Repository();
+		CommitComment comment = new CommitComment();
+		Mockito.doReturn(comment).when(_pullRequestService).createComment(repository, 0, comment);
+
+		// When
+		CommitComment result = github.createComment(repository, 0, comment);
+
+		// Then
+		assertEquals(result,comment);
 	}
 }

@@ -3,6 +3,8 @@ package nz.ac.auckland.softeng754_assignment4.service;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.egit.github.core.CommitComment;
+import org.eclipse.egit.github.core.IRepositoryIdProvider;
 import org.eclipse.egit.github.core.MergeStatus;
 import org.eclipse.egit.github.core.PullRequest;
 import org.eclipse.egit.github.core.Repository;
@@ -86,6 +88,11 @@ public class GitHubService implements IGitHubService {
 	public MergeStatus merge(Repository repository, PullRequest request, String commitMessage)
 			throws IOException {
 		return _pullRequestService.merge(repository, (int) request.getId(), commitMessage);
+	}
+	
+	@Override
+	public CommitComment createComment(Repository repository,int id, CommitComment comment) throws IOException {
+		return _pullRequestService.createComment(repository, id, comment);
 	}
 
 }
