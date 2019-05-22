@@ -51,7 +51,7 @@ public class AllocationServiceTest {
     @Test
     public void shouldRandomlyChooseAReviewer(){
         //Given
-        List<Reviewer> reviewersWithHighestCount = new ArrayList<Reviewer>();
+        List<Reviewer> reviewersWithLowestCount = new ArrayList<Reviewer>();
         int LowestCount = 3;
 
         Reviewer reviewer1 = new Reviewer("reviewer1");
@@ -62,18 +62,18 @@ public class AllocationServiceTest {
         reviewer2.setCount(LowestCount);
         reviewer3.setCount(LowestCount);
 
-        reviewersWithHighestCount.add(reviewer1);
-        reviewersWithHighestCount.add(reviewer2);
-        reviewersWithHighestCount.add(reviewer3);
+        reviewersWithLowestCount.add(reviewer1);
+        reviewersWithLowestCount.add(reviewer2);
+        reviewersWithLowestCount.add(reviewer3);
 
         Mockito.doReturn(LowestCount).when(iDatabase).getLowestCount();
-        Mockito.doReturn(reviewersWithHighestCount).when(iDatabase).getReviewersByCount(LowestCount);
+        Mockito.doReturn(reviewersWithLowestCount).when(iDatabase).getReviewersByCount(LowestCount);
 
         //When
         Reviewer chosenReviewer = allocationService.chooseReviewer();
 
         //Then
-        assertEquals(true, reviewersWithHighestCount.contains(chosenReviewer));
+        assertEquals(true, reviewersWithLowestCount.contains(chosenReviewer));
     }
 
     @Test
